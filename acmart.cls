@@ -1138,7 +1138,8 @@ Computing Machinery]
   \ifx\acmConference@shortname\@empty
     \gdef\acmConference@shortname{#2}%
   \fi}
-\acmConference[CS454 Project'18]{CS454 Project}{Dec 2018}{KAIST}
+\acmConference[Conference'17]{ACM Conference}{July 2017}{Washington,
+  DC, USA}
 \def\acmBooktitle#1{\gdef\@acmBooktitle{#1}}
 \acmBooktitle{Proceedings of \acmConference@name
        \ifx\acmConference@name\acmConference@shortname\else
@@ -2214,29 +2215,6 @@ Computing Machinery]
       \string\titlenote{} or \string\authornote{} instead!}}%
   \def\@article@string{\ifx\@acmArticle\@empty{\ }\else,
     Article~\@acmArticle\ \fi}%
-  \par\medskip\small\noindent{\bfseries ACM Reference Format:}\par\nobreak
-  \noindent\bgroup
-    \def\\{\unskip{}, \ignorespaces}\authors\egroup. \@acmYear. \@title
-  \ifx\@subtitle\@empty. \else: \@subtitle. \fi
-  \if@ACM@nonacm\else
-    % The 'nonacm' option disables 'printacmref' by default,
-    % and the present \@mkbibcitation definition is never used
-    % in this case. The conditional remains useful if the user
-    % explicitly sets \settopmatter{printacmref=true}.
-    \if@ACM@journal
-       \textit{\@journalNameShort}
-       \@acmVolume, \@acmNumber \@article@string (\@acmPubDate),
-       \ref{TotPages}~\@pages@word.
-    \else
-       In \textit{\@acmBooktitle}%
-       \ifx\@acmEditors\@empty\textit{.}\else
-         \andify\@acmEditors\textit{, }\@acmEditors~\@editorsAbbrev.%
-       \fi\
-       ACM, New York, NY, USA%
-         \@article@string\unskip, \ref{TotPages}~\@pages@word.
-    \fi
-  \fi
-  \ifx\@acmDOI\@empty\else\@formatdoi{\@acmDOI}\fi
 \par\egroup}
 \def\@printendtopmatter{\par\bigskip}
 \def\@setthanks{\long\def\thanks##1{\par##1\@addpunct.}\thankses}
