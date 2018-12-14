@@ -1,7 +1,30 @@
 \section{Introduction}
 
 
-\section{The NRP Model}
+\section{Related Work}
+
+
+
+\section{The Model}
+
+Let $R = \{r_1, r_2, \ldots, r_N\}$ is a set of all possible N requirements for software or company and each requirement $r_i \in R$ has its cost and profit, $cost_i \in \mathbb{Z}^+$ and $profit_i \in \mathbb{Z}^+$, to be performed. The cost is whatever company have to pay to resolve requirements, for example, money, time and etc. The profit is whatever company get by resolving requirements, for example, user satisfaction. In this project, we assumed that all requirements are independent. It means, there is no prerequisite of requirements. The cost vector $Cost$ and the profit vector $Profit$ for requirements are denoted by 
+\[
+Cost = \{cost_1, cost_2, \ldots, cost_N\}
+\]
+\[
+Profit = \{profit_1, profit_2, \ldots, profit_N\}
+\]
+
+The company always wants to select requirements for the next release to get the highest sum of profits in the limited budget. Let the decision vector $x = \{x_1, x_2, \ldots, x_n\} \in \{0, 1\}$ where $x_i$ is 1 if requirement $i$ is selected and 0 otherwise. Then our objective function can be written as below:
+\[
+maximize \sum_{i = 1}^{N} profit_i \cdot x_i
+\]
+subject to
+\[
+\sum_{i = 1}^{N} cost_i \cdot x_i \leq B
+\]
+for some bound $B \in \mathbb{Z}^+$ which represents the limited budget.
+
 
 
 

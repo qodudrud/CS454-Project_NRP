@@ -1138,8 +1138,7 @@ Computing Machinery]
   \ifx\acmConference@shortname\@empty
     \gdef\acmConference@shortname{#2}%
   \fi}
-\acmConference[Conference'17]{ACM Conference}{July 2017}{Washington,
-  DC, USA}
+\acmConference[CS454'18]{CS454 Project}{Dec 2018}{KAIST}
 \def\acmBooktitle#1{\gdef\@acmBooktitle{#1}}
 \acmBooktitle{Proceedings of \acmConference@name
        \ifx\acmConference@name\acmConference@shortname\else
