@@ -8,7 +8,7 @@ In the Multi-Objective Next Release Problem(MONRP)\cite{MONRP}, authors tried to
 
 After these papers, there are many trials to select the optimal set of requirements.\cite{ILP} \cite{DE} \cite{ACO} However, in almost cases, they used the data set which is randomly generated.
 
-Tonella et al. were applied the Interactive Genetic Algorithm and AHP to the NRP and requirements prioritization for real software system as part of the project ACube, but their constraint was number of information about the priority graph, not the limited budget. 
+Tonella et al. were applied the Interactive Genetic Algorithm and AHP to the NRP and requirements prioritization for real software system as part of the project ACube, but their constraint was number of information about the priority graph, not the limited budget.\cite{IGA} 
 
 
 
@@ -33,58 +33,64 @@ subject to
 for some bound $B \in \mathbb{Z}^+$ which represents the limited budget.
 
 
+\section{Algorithms}
+We applied two deterministic algorithms(AHP and ILP) and three heuristic algorithms(SA, GA and NSGA-II) which were introduced as the algorithms well-suited for the NRP in papers.\cite{NRP}\cite{ILP}\cite{IGA}\cite{MONRP}
+
+
+\subsection{Analytic Hierarchy Process}
+
+\subsection{Integer Linear Programming}
+
+\subsection{Simulated Annealing}
+Simulated annealing(SA) is one of the local search techniques which are iterative in nature and rely on the definition of a solution neighbourhood. For our NRP project, a requirement-based neighbourhood was defined. So the current solution can reach its neighbour by making small changes of decision vector $x$.
+
+To apply the SA, we have to define a objective function to get the optimal decision vector:
+\[
+f(\textbf{x}) = \sum_{i = 1}^{N} profit_i \cdot x_i + \lambda \min \Big\{0, \sum_{i = 1}^{N} (cost_i \cdot x_i) - B \Big\}
+\]
+
+
+for NRP was introduced in the NRP paper by Bagnall et al.\cite{NRP}
+
+
+In this paper, the cooling schedule by Lundy and Mess\cite{LundySA} is well-suited. Their approach is presented below:
+\[
+    T_{i+1} = \frac{T_i}{1 + \beta T_i}
+\]
+where $T_i$ is the temperature at iteration $i$ and $\beta$ is control parameter. So for the Lundy and Mess cooling schedule, the temperature drops after each move.
+
+In our project, the parameter $\beta$ was set to $1 \times 10^{-8}$ since Bagnall et al. got the best solution for this value in their paper.
+
+\subsection{Genetic Algorithm}
+
+\subsection{NSGA-II}
+
+\begin{algorithm}
+\caption{NSGA-II}\label{alg:nsga2}
+\begin{algorithmic}
+    \While{not stopping condition}
+        \State Let $R_t = P_t \cup Q_t$ ;
+        \State Let $F = $ fast-non-dominated-sort ($R_t$) ; %\Comment{}
+        \State Let $P_{t+1} = \emptyset$ and $i = 1$ ;
+        \While{$|P_{t+1}| + |F_i| \leq N$}
+            \State Apply crowding-distance-assignment($F_i$) ; %\Comment{}
+            \State Let $P_{t+1} = P_{t+1} \cup F_i$ ;
+            \State Let $i = i + 1$
+        \EndWhile
+        \State $Sort(F_i, \prec_n)$
+        \State Let $P_{t+1} = P_{t+1} \cup F_i[1:(N - |P_{t+1}|)]$ ;
+        \State Let $Q_{t+1} = $ make-new-pop($P_{t+1}$) ;
+        \State Let $t = t + 1$ ;
+    \EndWhile\label{euclidendwhile}
+\end{algorithmic}
+\end{algorithm}
+
+\section{Results}
+
+\section{Conclusion}
 
 
 
-\subsection{Type Changes and {\itshape Special} Characters}
-
-
-\subsection{Math Equations}
-You may want to display math equations in three distinct styles:
-inline, numbered or non-numbered display.  Each of
-the three are discussed in the next sections.
-
-\subsubsection{Inline (In-text) Equations}
-A formula that appears in the running text is called an
-inline or in-text formula.  It is produced by the
-\textbf{math} environment, which can be
-invoked with the usual \texttt{{\char'134}begin\,\ldots{\char'134}end}
-construction or with the short form \texttt{\$\,\ldots\$}. You
-
-few examples of in-text equations in context. Notice how
-this equation:
-\begin{math}
-  \lim_{n\rightarrow \infty}x=0
-\end{math},
-set here in in-line math style, looks slightly different when
-set in display style.  (See next section).
-
-\subsubsection{Display Equations}
-A numbered display equation---one set off by vertical space from the
-text and centered horizontally---is produced by the \textbf{equation}
-environment. An unnumbered display equation is produced by the
-\textbf{displaymath} environment.
-
-Again, in either environment, you can use any of the symbols
-and structures available in \LaTeX\@; this section will just
-give a couple of examples of display equations in context.
-First, consider the equation, shown as an inline equation above:
-\begin{equation}
-  \lim_{n\rightarrow \infty}x=0
-\end{equation}
-Notice how it is formatted somewhat differently in
-the \textbf{displaymath}
-environment.  Now, we'll enter an unnumbered equation:
-\begin{displaymath}
-  \sum_{i=0}^{\infty} x + 1
-\end{displaymath}
-and follow it with another numbered equation:
-\begin{equation}
-  \sum_{i=0}^{\infty}x_i=\int_{0}^{\pi+2} f
-\end{equation}
-just to demonstrate \LaTeX's able handling of numbering.
-
-\subsection{Citations}
 
 
 
