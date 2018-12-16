@@ -41,7 +41,9 @@ We applied two deterministic algorithms(AHP and ILP) and three heuristic algorit
 \subsection{Analytic Hierarchy Process}
 
 \subsection{Integer Linear Programming}
-Integer Linear Programming(ILP) is optimization method whose objective function and constraints are linear, and all variables are integer. Reference paper used ILP solver named \textit{CPLEX}, but it is commercial solver so we used \textit{PuLP}(modeler) and \textit{Gurobi}(solver) for this project. \textit{PuLP} is free open source software so users can use it by pip install. However general \textit{Gurobi} solver is commercial one so we registered to \textit{Gurobi (www.gurobi.com)} and used \textit{Gurobi} academic version.
+The Integer Linear Programming(ILP) is optimization method whose objective function and constraints are linear, and all variables are integer. The NRP can be treated as the ILP since each element of the decision vector $\textbf{x}$ is 0 or 1 and our constraint, the limited budget, is also linear. So we applied the ILP solver to the NRP problem.
+
+Reference paper\cite{ILP} used ILP solver named \textit{CPLEX}, but it is commercial solver so we used \textit{PuLP}(modeler) and \textit{Gurobi}(solver) for this project. \textit{PuLP} is free open source software so users can use it. However, general \textit{Gurobi} solver is commercial one so we registered to \textit{Gurobi (www.gurobi.com)} and used \textit{Gurobi} academic version.
 
 \subsection{Simulated Annealing}
 Simulated annealing(SA) is one of the local search techniques which are iterative in nature and rely on the definition of a solution neighbourhood. For our NRP project, a requirement-based neighbourhood was defined. So the current solution can reach its neighbour by making small changes of decision vector $x$.
@@ -50,18 +52,15 @@ To apply the SA, we have to define a objective function to get the optimal decis
 \[
 f(\textbf{x}) = \sum_{i = 1}^{N} profit_i \cdot x_i + \lambda \min \Big\{0, \sum_{i = 1}^{N} (cost_i \cdot x_i) - B \Big\}
 \]
+where $\textbf{x}$ is the decision vector, $f$ is our objective function and $\lambda$ is control parameter. We can impose a penalty if the sum of costs exceed the limited budget by using the control parameter $\lambda$. This objective function is also used in genetic algorithm to evaluate each chromosome.
 
-
-for NRP was introduced in the NRP paper by Bagnall et al.\cite{NRP}
-
-
-In this paper, the cooling schedule by Lundy and Mess\cite{LundySA} is well-suited. Their approach is presented below:
+In the NRP paper\cite{NRP}, the cooling schedule by Lundy and Mess\cite{LundySA} is well-suited. Their approach is presented below:
 \[
     T_{i+1} = \frac{T_i}{1 + \beta T_i}
 \]
 where $T_i$ is the temperature at iteration $i$ and $\beta$ is control parameter. So for the Lundy and Mess cooling schedule, the temperature drops after each move.
 
-In our project, the parameter $\beta$ was set to $1 \times 10^{-8}$ since Bagnall et al. got the best solution for this value in their paper.
+In our project, the parameter $\lambda$ and $\beta$ were set to 5 and $1 \times 10^{-8}$ since Bagnall et al. got the best solution for this value in their paper.
 
 \subsection{Genetic Algorithm}
 
