@@ -1,5 +1,18 @@
 \section{Introduction}
+ The NRP problem is the choice of what requirements the company will reflect when making the next version of the product. This problem is primarily aimed at helping the company get the most profit from limited costs. However, most of the previous studies were using random variables, not actual data values. 
+ 
+ The reason is that first of all, it's quite difficult to define the cost and the profit. Cost and profits are quite difficult to quantify. Both have to be calculated before the actual requirements are applied, so we have to use estimates value, rather than actual values. The second reason is that the requirements for the company's next production are highly secured data to the company and are very difficult to use in real research. Even if your company provides data, the actual results are prohibited to open, and this often results in post-processing after the release.
+ 
+ We point out that these processes are wrong. The real NRP problem is that the cost and profit are not independent, and because it is used in the real industry, the process of obtaining the cost and profit has to be included to entire process. Also, importing and writing data from the future makes it difficult for research results to be applied to actual industrial sites. So we chose our topic to build our own industrial data and apply search-based algorithms. 
+ 
+Section 2 introduces the related paper about our topic. Section 3 introduces the basic model of the NRP problem that we are currently dealing with in our report.
 
+We divided the main part of the report into two parts. First, in section 4, we will organize the requirements in the actual product and create a dataset. And in this process, we're not going to use any random variables, and we're not going to bring in actual profit and cost from the future. 
+And in Section 5, we're going to apply different search-based algorithms to the datasets that we've created. In addition to SA, GA, and NSGA2, which were introduced in class, we also implemented IPH and AHP directly and applied them to datasets. We will apply them to actual datasets and compare the performance of each algorithm in terms of time cost and optimization answers. And we'll also see how much search-based algorithm has increased the propitization compared to the actual true value.
+
+All codes used in the paper can be found at 
+
+https://github.com/shkevinlee/CS454
 
 \section{Related Work}
 The Next Release Problem(NRP)\cite{NRP} was proposed by Bagnall et al in 2001. In this paper, authors considered requirements which can be dependent on other requirements. And also, they set the importance(or weight) of each customer who demands for resolving requirements to company.
