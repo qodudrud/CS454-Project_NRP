@@ -287,7 +287,7 @@ At first experiment(EX1), we applied each algorithm to four datasets in order to
 
 At second experiment(EX2), we applied each algorithm to \textit{firefox-III} dataset to analyze the correlation between cost and profit. And also, we expected to get the interesting range which have a great change as the limted budget are increased or decreased.
 
-All heuristic approaches(SA, GA and NSGA-II) were run for 500,000 function evaluations. The population size was set to 200. So each experimental execution of GA and NSGA-II was terminated when the generation number reached 2,500. GA and NSGA-II used the tournament selection(tournament size is 5), single-point cross-over, and bit-wise mutation for binary-coded GAs. The cross-over probability and the mutation probability were set to 0.8 and 1/N (where N is the length of chromosome same with the number of requirements).
+All heuristic approaches(SA, GA and NSGA-II) were run for 500,000 function evaluations. SA started from a greedy solution and GA and NSGA-II started from the initial population which contains a greedy solution. The population size was set to 200. So each experimental execution of GA and NSGA-II was terminated when the generation number reached 2,500. GA and NSGA-II used the tournament selection(tournament size is 5), single-point cross-over, and bit-wise mutation for binary-coded GAs. The cross-over probability and the mutation probability were set to 0.8 and 1/N (where N is the length of chromosome same with the number of requirements).
 
 
 \section{Result and Analysis}
