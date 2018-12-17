@@ -78,7 +78,7 @@ The greedy algorithm for the initial solution of heuristic algorithms is describ
 
 
 \subsection{Analytic Hierarchy Process}
-The Analytic Hierarchy Process(AHP) which was first applied to requirement prioritization by Karlsson and Ryan\cite{AHP} is a structured technique for organizing and analyzing complex decisions. To use the AHP for decision making, we have to perform pairwise comparisons of all the requirements to get their relative intensity. However, in our case, we cannot compare relatively each other and evaluate. Therefore, we define the relative intensity as the ratio of each requirement. 
+The Analytic Hierarchy Process(AHP) which was first applied to requirement prioritization by Karlsson and Ryan\cite{AHP} is a structured technique for organizing and analyzing complex decisions. To use the AHP for decision making, we have to perform pairwise comparisons of all the requirements to get their relative intensity. However, in our case, we cannot compare relatively each other and evaluate. Therefore, we define the relative intensity as the ratio of each requirement. Then we will sort the ratio and selected the requirements so that they would not exceed the limited cost.
 
 
 \begin{algorithm}
@@ -301,7 +301,13 @@ The result is that they are all increasing almost similarly. One of the reasons 
 
 
 \section{Conclusion}
+The research question we presented was two things.
+The RQ1. "Could we estimate profit from Bugzilla without forward looking?". We were able to get a proposal for the demand of custmers in Bugzilla through Priority and Comment. The RQ2. "Could we estimate profit from Bugzilla without forward looking?". We define the Cost in Bugzilla as time. The component's Cost is not accurate. However, the costs are not meaningless given the trends of 2016 and 2017. With this research question, we have built a dataset in the real world for NRP research.
 
+In the results of the experiment.
+EX1. was profit comparison. Exept for dataset with priority, the ILP has the highest result. And deterministic algorithms that AHP and ILP are very fast than heuristic algorithms. Ex2. is a comparison of the results of the profit according to the cost limit. As we mentioned, we found that limits of the Cost and the Profit had a linear relationship, regardless of algorithm. These results show that tere are no major problems with applying NRP argorithms to our dataset. Therefore, the dataset was well set to solve  the NRP.
+
+In previous NRP studies, both dataset were applied with the random Cost and Profit values. But our project use actual situations value. It also showed that the NRP's algorithm worked well. In this way, later NRP studies have shown the possibility of using real situations rather than random values. 
 
 
 
