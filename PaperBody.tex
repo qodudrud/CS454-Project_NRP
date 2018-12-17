@@ -37,8 +37,28 @@ for some bound $B \in \mathbb{Z}^+$ which represents the limited budget.
 \section{Algorithms}
 We applied two deterministic algorithms(AHP and ILP) and three heuristic algorithms(SA, GA and NSGA-II) which were introduced as the algorithms well-suited for the NRP in papers.\cite{NRP}\cite{ILP}\cite{IGA}\cite{MONRP}
 
+\subsection{greedy algorithm}
+
 
 \subsection{Analytic Hierarchy Process}
+The Analytic Hierarchy Process(AHP) which was first applied to requirement prioritization by Karlsson and Ryan\cite{AHP} is a structured technique for organizing and analyzing complex decisions. To use the AHP for decision making, we have to perform pairwise comparisons of all the requirements to get their relative intensity. However, in our case, we cannot compare relatively each other and evaluate. Therefore, we define the relative intensity as the ratio of each requirement. 
+
+
+\begin{algorithm}
+\caption{Analytic Hierarchy Process (AHP)}\label{alg:AHP}
+\begin{algorithmic}
+    \State $x \gets$ initial decision vector ;
+    \State $T \gets$ initial temperature ; 
+    \While{not stopping condition}
+        \State $x_{new} \gets GetRandomNeigbour(x)$ ;
+        \If {$AcceptanceRate(F(x), F(x_{new}), T) \geq random(0, 1)$}
+            \State $x \gets x_{new}$ ;
+        \EndIf
+        \State $T \gets COOL(T)$ \Comment{Lundy and Mess}
+    \EndWhile
+    \textbf{return} $x$
+\end{algorithmic}
+\end{algorithm}
 
 \subsection{Integer Linear Programming}
 The Integer Linear Programming(ILP) is optimization method whose objective function and constraints are linear, and all variables are integer. The NRP can be treated as the ILP since each element of the decision vector $\textbf{x}$ is 0 or 1 and our constraint, the limited budget, is also linear. So we applied the ILP solver to the NRP problem.
@@ -60,15 +80,52 @@ In the NRP paper\cite{NRP}, the cooling schedule by Lundy and Mess\cite{LundySA}
 \]
 where $T_i$ is the temperature at iteration $i$ and $\beta$ is control parameter. So for the Lundy and Mess cooling schedule, the temperature drops after each move.
 
+The main loop of SA can be described in Algorithm \ref{alg:SA}. To increase the performance, we used a greedy solution as the initial decision vector. 
+
 In our project, the parameter $\lambda$ and $\beta$ were set to 5 and $1 \times 10^{-8}$ since Bagnall et al. got the best solution for this value in their paper.
 
+
+\begin{algorithm}
+\caption{Simulated Annealing (SA)}\label{alg:SA}
+\begin{algorithmic}
+    \State $x \gets$ initial decision vector ;
+    \State $T \gets$ initial temperature ; 
+    \While{not stopping condition}
+        \State $x_{new} \gets GetRandomNeigbour(x)$ ;
+        \If {$AcceptanceRate(F(x), F(x_{new}), T) \geq random(0, 1)$}
+            \State $x \gets x_{new}$ ;
+        \EndIf
+        \State $T \gets COOL(T)$ \Comment{Lundy and Mess}
+    \EndWhile
+    \textbf{return} $x$
+\end{algorithmic}
+\end{algorithm}
+
 \subsection{Genetic Algorithm}
+The Genetic Algorithm(GA) is one of the evolutionary algorithms. In our project, we used a single objective function for GA which is the same with the simulated annealing. To make offspring population, we used the tournament selection, cross-over, and mutation operator. We also let the best one which has the best profit remain on the population for elitism.
 
 \subsection{NSGA-II}
+The Non-dominated Sorting Genetic Algorithm-II (NSGA-II) was introduced by Deb et al.\cite{NSGA2} It is one of the various approaches to solve the Multi-Objective Optimization Problems(MOOPs). So, to apply this algorithm, we have to decide the second objective function. 
+
+The goal of our project is finding the optimal decision vector under the limited budget. Therefore, if we convert this single objective function into the MOOPs, our objective functions on MOOPs can be written as below:
+
+\[
+maximize \sum_{i = 1}^{N} profit_i \cdot x_i
+\]
+\[
+maximize -\sum_{i = 1}^{N} cost_i \cdot x_i
+\]
+
+The result of NSGA-II is the Pareto front on two objective function space. So, to get the optimal decision vector among them, we selected one which has maximum profits under the limited budget among the Pareto front.
+
+The main loop of NSGA-II can be described in Algorithm \ref{alg:nsga2}. Initial population is randomly created except one which is greedy solution. The \textit{make-new-pop} function consist of tournament selection, cross-over, and mutation operator which are used to create a child population.
 
 \begin{algorithm}
 \caption{NSGA-II}\label{alg:nsga2}
 \begin{algorithmic}
+    \State $t = 0$ ;
+    \State $P_0 \gets$ initial population ;
+    \State $Q_0 =$ make-new-pop($P_0$) ;
     \While{not stopping condition}
         \State Let $R_t = P_t \cup Q_t$ ;
         \State Let $F = $ fast-non-dominated-sort ($R_t$) ; %\Comment{}
@@ -82,7 +139,7 @@ In our project, the parameter $\lambda$ and $\beta$ were set to 5 and $1 \times 
         \State Let $P_{t+1} = P_{t+1} \cup F_i[1:(N - |P_{t+1}|)]$ ;
         \State Let $Q_{t+1} = $ make-new-pop($P_{t+1}$) ;
         \State Let $t = t + 1$ ;
-    \EndWhile\label{euclidendwhile}
+    \EndWhile
 \end{algorithmic}
 \end{algorithm}
 
@@ -98,7 +155,7 @@ In our project, the parameter $\lambda$ and $\beta$ were set to 5 and $1 \times 
     \hline
     SA&3702.85182&13524.93411&16300.0&28358.2295685 \\
     GA&3793.5045&13662.38600&16303.0&28522.11861 \\
-    NSGA-II&3822.47741&13700.52067&16518.33333&28729.33476 \\
+    NSGA-II&3822.47741&13700.52067&16332.6667&28729.33476 \\
     ILP&3825.42768&13768.44722&16336.0&28845.23124 \\
     AHP&3810.3125825&13758.5577962&16249.0&28811.2749907 \\
     \bottomrule
@@ -132,36 +189,56 @@ In our project, the parameter $\lambda$ and $\beta$ were set to 5 and $1 \times 
 \label{fig:image1}
 \end{figure*}
 
-\begin{figure*}[h]
-\begin{subfigure}{\columnwidth}
-\includegraphics[width=0.9\linewidth]{SA-correlation.JPG}
-\caption{SA}
-\label{fig:subim5}
-\end{subfigure}
-\begin{subfigure}{\columnwidth}
-\includegraphics[width=0.9\linewidth]{GA-correlation.JPG}
-\caption{GA}
-\label{fig:subim6}
-\end{subfigure}
-\begin{subfigure}{\columnwidth}
-\includegraphics[width=0.9\linewidth]{ILP-correlation.JPG}
-\caption{ILP}
-\label{fig:subim7}
-\end{subfigure}
-\begin{subfigure}{\columnwidth}
-\includegraphics[width=0.9\linewidth]{AHP-correlation.JPG}
-\caption{AHP}
-\label{fig:subim8}
-\end{subfigure}
 
-\caption{Cost-Profit Correlation}
-\label{fig:image2}
-\end{figure*}
+%\begin{figure*}[h]
+%\begin{subfigure}{\columnwidth}
+%\includegraphics[width=0.9\linewidth]{SA-correlation.JPG}
+%\caption{SA}
+%\label{fig:subim5}
+%\end{subfigure}
+%\begin{subfigure}{\columnwidth}
+%\includegraphics[width=0.9\linewidth]{GA-correlation.JPG}
+%\caption{GA}
+%\label{fig:subim6}
+%\end{subfigure}
+%\begin{subfigure}{\columnwidth}
+%\includegraphics[width=0.9\linewidth]{ILP-correlation.JPG}
+%\caption{ILP}
+%\label{fig:subim7}
+%\end{subfigure}
+%\begin{subfigure}{\columnwidth}
+%\includegraphics[width=0.9\linewidth]{AHP-correlation.JPG}
+%\caption{AHP}
+%\label{fig:subim8}
+%\end{subfigure}
+
+%\caption{Cost-Profit Correlation}
+%\label{fig:image2}
+%\end{figure*}
+
+\begin{table*}[]
+\caption{The sum of profits on each limited budget}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\multicolumn{1}{c}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}The limited\\ budget\end{tabular}}} & \multicolumn{5}{c}{Algorithms}                                                                                                    \\ \cmidrule(l){2-6} 
+\multicolumn{1}{c}{}                                                                              & \multicolumn{1}{c}{AHP} & \multicolumn{1}{c}{ILP} & \multicolumn{1}{c}{SA} & \multicolumn{1}{c}{GA} & \multicolumn{1}{c}{NSGA-II} \\ \midrule
+100,000 & 14472.21303& \textbf{14530.92923}& 13787.94014& 13916.62496& 14359.51809\\
+120,000 & 16798.95935& \textbf{16845.48739}& 16269.28033& 16440.60658& 16746.14339\\
+140,000 & 18948.3466&  \textbf{18979.35023}& 18553.36746& 18706.04924& 18906.95215\\
+160,000 & 20906.31785& \textbf{20934.94744}& 20559.69749& 20656.69427& 20873.08535\\
+180,000 & 22683.10701& \textbf{22718.92665}& 22332.52554& 22449.04724& 22651.51132\\
+200,000 & 24343.18852& \textbf{24369.86106}& 23894.25792& 24054.60654& 24281.04096\\
+220,000 & 25881.1836&  \textbf{25901.23028}& 25425.18545& 25565.45349& 25804.51079\\
+240,000 & 27305.09756& \textbf{27324.51067}& 26790.58789& 26987.08126& 27214.27095\\
+260,000 & 28626.58769& \textbf{28653.54334}& 28161.5672&  28293.21833& 28556.63614\\ \bottomrule
+\end{tabular}
+\end{table*}
+
 
 \begin{figure*}[h]
-\includegraphics[width=0.9\linewidth]{cost-profit-together.JPG}
+\includegraphics[width=0.9\linewidth]{ParetoFronts.png}
 \caption{Cost-Profit Correlation in one graph}
-\label{fig:image3}
+\label{fig:paretofronts}
 \end{figure*}
 
 \section{Results}
