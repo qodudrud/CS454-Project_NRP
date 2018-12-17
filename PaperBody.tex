@@ -325,17 +325,7 @@ All heuristic approaches(SA, GA and NSGA-II) were run for 500,000 function evalu
 
 %The result is that they are all increasing almost similarly. One of the reasons to perform this experiment was that we wondered if there is a peculiar part in cost-profit graph.(if there is exceeding increase in profit) And at the result, there is no prominently peculiar part, and all the results are increasing normally.
 
-\subsection{Experiment 1}
-At EX1, we applied two deterministic and three heuristic algorithms to four datasets and compared the averaged maximum profit to each other. Figure \ref{fig:DatasetProfit} shows the results of EX1. Each graph expresses the profit of five algorithms under the limited budget(= the estimated cost).
-
-In these results, the profit of each algorithm were bigger than the real profit in Table \ref{table:Dataset}. And, in every case, the ILP has the biggest profit. However, the order of other algorithms are slightly changed for dataset.
-
-The SA has the smallest profit in most cases, except Figure \ref{fig:DatasetProfit}-(c). Although the SA started from a greedy solution, there is little difference between the result and a greedy solution. The profit of GA is bigger than SA and smaller than NSGA-II in every cases. So, the profit is high in order of NSGA-II, GA, then SA. The AHP has good performances for some cases. However, it has the lowest profit in \ref{fig:DatasetProfit}-(c). Therefore, we can conclude that the strategy about evaluating profit can be affect the results.
-
-The run time of two deterministic algorithms were much faster than heuristic algorithms. Therefore, we can conclude that the ILP is well-suited for our datasets and also it is much faster than other heuristic algorithms.
-
-\subsection{Experiment 2}
-\begin{table*}[]
+\begin{table*}[t]
 \caption{Profit on each limited budget}
 \begin{tabular}{@{}crrrrr@{}}
 \toprule
@@ -353,6 +343,17 @@ The run time of two deterministic algorithms were much faster than heuristic alg
 \end{tabular}
 \label{table:ParetoFront}
 \end{table*}
+
+\subsection{Experiment 1}
+At EX1, we applied two deterministic and three heuristic algorithms to four datasets and compared the averaged maximum profit to each other. Figure \ref{fig:DatasetProfit} shows the results of EX1. Each graph expresses the profit of five algorithms under the limited budget(= the estimated cost).
+
+In these results, the profit of each algorithm were bigger than the real profit in Table \ref{table:Dataset}. And, in every case, the ILP has the biggest profit. However, the order of other algorithms are slightly changed for dataset.
+
+The SA has the smallest profit in most cases, except Figure \ref{fig:DatasetProfit}-(c). Although the SA started from a greedy solution, there is little difference between the result and a greedy solution. The profit of GA is bigger than SA and smaller than NSGA-II in every cases. So, the profit is high in order of NSGA-II, GA, then SA. The AHP has good performances for some cases. However, it has the lowest profit in \ref{fig:DatasetProfit}-(c). Therefore, we can conclude that the strategy about evaluating profit can be affect the results.
+
+The run time of two deterministic algorithms were much faster than heuristic algorithms. Therefore, we can conclude that the ILP is well-suited for our datasets and also it is much faster than other heuristic algorithms.
+
+\subsection{Experiment 2}
 
 At EX2, we got the profits while changing the cost constraint. The result is expressed in Table \ref{table:ParetoFront}. In the results, profits of each algorithms are all increasing almost similarly and the order of profits(ILP, AHP. NSGA-II, GA, then SA) are same in every case. And also, we observed that the change of profits become smaller as the limited budget increases.
 
