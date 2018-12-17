@@ -1,0 +1,273 @@
+\section{Introduction}
+ The NRP problem is the choice of what requirements the company will reflect when making the next version of the product. This problem is primarily aimed at helping the company get the most profit from limited costs. However, most of the previous studies were using random variables, not actual data values. 
+ 
+ The reason is that first of all, it's quite difficult to define the cost and the profit. Cost and profits are quite difficult to quantify. Both have to be calculated before the actual requirements are applied, so we have to use estimates value, rather than actual values. The second reason is that the requirements for the company's next production are highly secured data to the company and are very difficult to use in real research. Even if your company provides data, the actual results are prohibited to open, and this often results in post-processing after the release.
+ 
+ We point out that these processes are wrong. The real NRP problem is that the cost and profit are not independent, and because it is used in the real industry, the process of obtaining the cost and profit has to be included to entire process. Also, importing and writing data from the future makes it difficult for research results to be applied to actual industrial sites. So we chose our topic to build our own industrial data and apply search-based algorithms. 
+ 
+Section 2 introduces the related paper about our topic. Section 3 introduces the basic model of the NRP problem that we are currently dealing with in our report.
+
+We divided the main part of the report into two parts. First, in section 4, we will organize the requirements in the actual product and create a dataset. And in this process, we're not going to use any random variables, and we're not going to bring in actual profit and cost from the future. 
+And in Section 5, we're going to apply different search-based algorithms to the datasets that we've created. In addition to SA, GA, and NSGA2, which were introduced in class, we also implemented IPH and AHP directly and applied them to datasets. We will apply them to actual datasets and compare the performance of each algorithm in terms of time cost and optimization answers. And we'll also see how much search-based algorithm has increased the propitization compared to the actual true value.
+
+All codes used in the paper can be found at 
+
+https://github.com/shkevinlee/CS454
+
+\section{Related Work}
+The Next Release Problem(NRP)\cite{NRP} was proposed by Bagnall et al in 2001. In this paper, authors considered requirements which can be dependent on other requirements. And also, they set the importance(or weight) of each customer who demands for resolving requirements to company.
+
+In the Multi-Objective Next Release Problem(MONRP)\cite{MONRP}, authors tried to solve this problem as the multi-objective optimization problem. They applied algorithms(Pareto GA, Single-objective GA, and NSGA-II) and concluded that the NSGA-II is well suited to the MONRP.
+
+After these papers, there are many trials to select the optimal set of requirements.\cite{ILP} \cite{DE} \cite{ACO} However, in almost cases, they used the data set which is randomly generated.
+
+Tonella et al. were applied the Interactive Genetic Algorithm and AHP to the NRP and requirements prioritization for real software system as part of the project ACube, but their constraint was number of information about the priority graph, not the limited budget.\cite{IGA} 
+
+
+
+\section{The Model}
+
+Let $R = \{r_1, r_2, \ldots, r_N\}$ is a set of all possible N requirements for software or company and each requirement $r_i \in R$ has its cost and profit, $cost_i \in \mathbb{Z}^+$ and $profit_i \in \mathbb{Z}^+$, to be performed. The cost is whatever company have to pay to resolve requirements, for example, money, time and etc. The profit is whatever company get by resolving requirements, for example, user satisfaction. In this project, we assumed that all requirements are independent. It means, there is no prerequisite of requirements. The cost vector $Cost$ and the profit vector $Profit$ for requirements are denoted by 
+\[
+Cost = \{cost_1, cost_2, \ldots, cost_N\}
+\]
+\[
+Profit = \{profit_1, profit_2, \ldots, profit_N\}
+\]
+
+The company always wants to select requirements for the next release to get the highest sum of profits in the limited budget. Let the decision vector $x = \{x_1, x_2, \ldots, x_n\} \in \{0, 1\}$ where $x_i$ is 1 if requirement $i$ is selected and 0 otherwise. Then our objective function can be written as below:
+\[
+maximize \sum_{i = 1}^{N} profit_i \cdot x_i
+\]
+subject to
+\[
+\sum_{i = 1}^{N} cost_i \cdot x_i \leq B
+\]
+for some bound $B \in \mathbb{Z}^+$ which represents the limited budget.
+
+\section{Data sets}
+
+\subsection{Bugzilla}
+\subsection{Open Source repository}
+\subsection{Crawling Modeling}
+\subsection{Research Question}
+\subsection{Profit}
+\subsection{Cost}
+
+\section{Algorithms}
+We applied two deterministic algorithms(AHP and ILP) and three heuristic algorithms(SA, GA and NSGA-II) which were introduced as the algorithms well-suited for the NRP in papers.\cite{NRP}\cite{ILP}\cite{IGA}\cite{MONRP}
+
+\subsection{greedy algorithm}
+
+
+\subsection{Analytic Hierarchy Process}
+The Analytic Hierarchy Process(AHP) which was first applied to requirement prioritization by Karlsson and Ryan\cite{AHP} is a structured technique for organizing and analyzing complex decisions. To use the AHP for decision making, we have to perform pairwise comparisons of all the requirements to get their relative intensity. However, in our case, we cannot compare relatively each other and evaluate. Therefore, we define the relative intensity as the ratio of each requirement. 
+
+
+\begin{algorithm}
+\caption{Analytic Hierarchy Process (AHP)}\label{alg:AHP}
+\begin{algorithmic}
+    \State $x \gets$ initial decision vector ;
+    \State $T \gets$ initial temperature ; 
+    \While{not stopping condition}
+        \State $x_{new} \gets GetRandomNeigbour(x)$ ;
+        \If {$AcceptanceRate(F(x), F(x_{new}), T) \geq random(0, 1)$}
+            \State $x \gets x_{new}$ ;
+        \EndIf
+        \State $T \gets COOL(T)$ \Comment{Lundy and Mess}
+    \EndWhile
+    \textbf{return} $x$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Integer Linear Programming}
+The Integer Linear Programming(ILP) is optimization method whose objective function and constraints are linear, and all variables are integer. The NRP can be treated as the ILP since each element of the decision vector $\textbf{x}$ is 0 or 1 and our constraint, the limited budget, is also linear. So we applied the ILP solver to the NRP problem.
+
+Reference paper\cite{ILP} used ILP solver named \textit{CPLEX}, but it is commercial solver so we used \textit{PuLP}(modeler) and \textit{Gurobi}(solver) for this project. \textit{PuLP} is free open source software so users can use it. However, general \textit{Gurobi} solver is commercial one so we registered to \textit{Gurobi (www.gurobi.com)} and used \textit{Gurobi} academic version.
+
+\subsection{Simulated Annealing}
+Simulated annealing(SA) is one of the local search techniques which are iterative in nature and rely on the definition of a solution neighbourhood. For our NRP project, a requirement-based neighbourhood was defined. So the current solution can reach its neighbour by making small changes of decision vector $x$.
+
+To apply the SA, we have to define a objective function to get the optimal decision vector:
+\[
+f(\textbf{x}) = \sum_{i = 1}^{N} profit_i \cdot x_i + \lambda \min \Big\{0, \sum_{i = 1}^{N} (cost_i \cdot x_i) - B \Big\}
+\]
+where $\textbf{x}$ is the decision vector, $f$ is our objective function and $\lambda$ is control parameter. We can impose a penalty if the sum of costs exceed the limited budget by using the control parameter $\lambda$. This objective function is also used in genetic algorithm to evaluate each chromosome.
+
+In the NRP paper\cite{NRP}, the cooling schedule by Lundy and Mess\cite{LundySA} is well-suited. Their approach is presented below:
+\[
+    T_{i+1} = \frac{T_i}{1 + \beta T_i}
+\]
+where $T_i$ is the temperature at iteration $i$ and $\beta$ is control parameter. So for the Lundy and Mess cooling schedule, the temperature drops after each move.
+
+The main loop of SA can be described in Algorithm \ref{alg:SA}. To increase the performance, we used a greedy solution as the initial decision vector. 
+
+In our project, the parameter $\lambda$ and $\beta$ were set to 5 and $1 \times 10^{-8}$ since Bagnall et al. got the best solution for this value in their paper.
+
+
+\begin{algorithm}
+\caption{Simulated Annealing (SA)}\label{alg:SA}
+\begin{algorithmic}
+    \State $x \gets$ initial decision vector ;
+    \State $T \gets$ initial temperature ; 
+    \While{not stopping condition}
+        \State $x_{new} \gets GetRandomNeigbour(x)$ ;
+        \If {$AcceptanceRate(F(x), F(x_{new}), T) \geq random(0, 1)$}
+            \State $x \gets x_{new}$ ;
+        \EndIf
+        \State $T \gets COOL(T)$ \Comment{Lundy and Mess}
+    \EndWhile
+    \textbf{return} $x$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Genetic Algorithm}
+The Genetic Algorithm(GA) is one of the evolutionary algorithms. In our project, we used a single objective function for GA which is the same with the simulated annealing. To make offspring population, we used the tournament selection, cross-over, and mutation operator. We also let the best one which has the best profit remain on the population for elitism.
+
+\subsection{NSGA-II}
+The Non-dominated Sorting Genetic Algorithm-II (NSGA-II) was introduced by Deb et al.\cite{NSGA2} It is one of the various approaches to solve the Multi-Objective Optimization Problems(MOOPs). So, to apply this algorithm, we have to decide the second objective function. 
+
+The goal of our project is finding the optimal decision vector under the limited budget. Therefore, if we convert this single objective function into the MOOPs, our objective functions on MOOPs can be written as below:
+
+\[
+maximize \sum_{i = 1}^{N} profit_i \cdot x_i
+\]
+\[
+maximize -\sum_{i = 1}^{N} cost_i \cdot x_i
+\]
+
+The result of NSGA-II is the Pareto front on two objective function space. So, to get the optimal decision vector among them, we selected one which has maximum profits under the limited budget among the Pareto front.
+
+The main loop of NSGA-II can be described in Algorithm \ref{alg:nsga2}. Initial population is randomly created except one which is greedy solution. The \textit{make-new-pop} function consist of tournament selection, cross-over, and mutation operator which are used to create a child population.
+
+\begin{algorithm}
+\caption{NSGA-II}\label{alg:nsga2}
+\begin{algorithmic}
+    \State $t = 0$ ;
+    \State $P_0 \gets$ initial population ;
+    \State $Q_0 =$ make-new-pop($P_0$) ;
+    \While{not stopping condition}
+        \State Let $R_t = P_t \cup Q_t$ ;
+        \State Let $F = $ fast-non-dominated-sort ($R_t$) ; %\Comment{}
+        \State Let $P_{t+1} = \emptyset$ and $i = 1$ ;
+        \While{$|P_{t+1}| + |F_i| \leq N$}
+            \State Apply crowding-distance-assignment($F_i$) ; %\Comment{}
+            \State Let $P_{t+1} = P_{t+1} \cup F_i$ ;
+            \State Let $i = i + 1$
+        \EndWhile
+        \State $Sort(F_i, \prec_n)$
+        \State Let $P_{t+1} = P_{t+1} \cup F_i[1:(N - |P_{t+1}|)]$ ;
+        \State Let $Q_{t+1} = $ make-new-pop($P_{t+1}$) ;
+        \State Let $t = t + 1$ ;
+    \EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table*}
+  \caption{Profit Comparison}
+  \label{tab:commands}
+  \begin{tabular}{cccccl}
+    \toprule
+    &eclipse-log&firefox-log&firefox-priority&firefox-comments+priority\\
+    \midrule
+    Real Cost&50699.70190&262945.49581&262945.49581&262945.49581 \\
+    Real Profit&3489.63592&13025.88085&12210&26332.88085 \\
+    \hline
+    SA&3702.85182&13524.93411&16300.0&28358.2295685 \\
+    GA&3793.5045&13662.38600&16303.0&28522.11861 \\
+    NSGA-II&3822.47741&13700.52067&16332.6667&28729.33476 \\
+    ILP&3825.42768&13768.44722&16336.0&28845.23124 \\
+    AHP&3810.3125825&13758.5577962&16249.0&28811.2749907 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+% end the environment with {table*}, NOTE not {table}!
+
+\begin{figure*}[h]
+\begin{subfigure}{\columnwidth}
+\includegraphics[width=0.9\linewidth]{bugzilla_eclipse_log(comments)_2016meancost.JPG}
+\caption{bugzilla-eclipse-log(comments)-2016meancost}
+\label{fig:subim1}
+\end{subfigure}
+\begin{subfigure}{\columnwidth}
+\includegraphics[width=0.9\linewidth]{bugzilla_firefox_log(comments)_2016meancost.JPG}
+\caption{bugzilla-firefox-log(comments)-2016meancost}
+\label{fig:subim2}
+\end{subfigure}
+\begin{subfigure}{\columnwidth}
+\includegraphics[width=0.9\linewidth]{bugzilla_firefox_priority_2016meancost.JPG}
+\caption{bugzilla-firefox-priority-2016meancost}
+\label{fig:subim3}
+\end{subfigure}
+\begin{subfigure}{\columnwidth}
+\includegraphics[width=0.9\linewidth]{bugzilla_firefox_comments-priority_2016meancost.JPG}
+\caption{bugzilla-firefox-comments+priority-2016meancost}
+\label{fig:subim4}
+\end{subfigure}
+
+\caption{Profit Comparison for each dataset}
+\label{fig:image1}
+\end{figure*}
+
+
+%\begin{figure*}[h]
+%\begin{subfigure}{\columnwidth}
+%\includegraphics[width=0.9\linewidth]{SA-correlation.JPG}
+%\caption{SA}
+%\label{fig:subim5}
+%\end{subfigure}
+%\begin{subfigure}{\columnwidth}
+%\includegraphics[width=0.9\linewidth]{GA-correlation.JPG}
+%\caption{GA}
+%\label{fig:subim6}
+%\end{subfigure}
+%\begin{subfigure}{\columnwidth}
+%\includegraphics[width=0.9\linewidth]{ILP-correlation.JPG}
+%\caption{ILP}
+%\label{fig:subim7}
+%\end{subfigure}
+%\begin{subfigure}{\columnwidth}
+%\includegraphics[width=0.9\linewidth]{AHP-correlation.JPG}
+%\caption{AHP}
+%\label{fig:subim8}
+%\end{subfigure}
+
+%\caption{Cost-Profit Correlation}
+%\label{fig:image2}
+%\end{figure*}
+
+\begin{table*}[]
+\caption{The sum of profits on each limited budget}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\multicolumn{1}{c}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}The limited\\ budget\end{tabular}}} & \multicolumn{5}{c}{Algorithms}                                                                                                    \\ \cmidrule(l){2-6} 
+\multicolumn{1}{c}{}                                                                              & \multicolumn{1}{c}{AHP} & \multicolumn{1}{c}{ILP} & \multicolumn{1}{c}{SA} & \multicolumn{1}{c}{GA} & \multicolumn{1}{c}{NSGA-II} \\ \midrule
+100,000 & 14472.21303& \textbf{14530.92923}& 13787.94014& 13916.62496& 14359.51809\\
+120,000 & 16798.95935& \textbf{16845.48739}& 16269.28033& 16440.60658& 16746.14339\\
+140,000 & 18948.3466&  \textbf{18979.35023}& 18553.36746& 18706.04924& 18906.95215\\
+160,000 & 20906.31785& \textbf{20934.94744}& 20559.69749& 20656.69427& 20873.08535\\
+180,000 & 22683.10701& \textbf{22718.92665}& 22332.52554& 22449.04724& 22651.51132\\
+200,000 & 24343.18852& \textbf{24369.86106}& 23894.25792& 24054.60654& 24281.04096\\
+220,000 & 25881.1836&  \textbf{25901.23028}& 25425.18545& 25565.45349& 25804.51079\\
+240,000 & 27305.09756& \textbf{27324.51067}& 26790.58789& 26987.08126& 27214.27095\\
+260,000 & 28626.58769& \textbf{28653.54334}& 28161.5672&  28293.21833& 28556.63614\\ \bottomrule
+\end{tabular}
+\end{table*}
+
+
+\begin{figure*}[h]
+\includegraphics[width=0.9\linewidth]{ParetoFronts.png}
+\caption{Cost-Profit Correlation in one graph}
+\label{fig:paretofronts}
+\end{figure*}
+
+\section{Results}
+At first experiment, we applied five algorithms to four datasets and compared the maximum profit each other. In \textbf{table 1}, upper two rows are real cost sum and real profit sum of each datasets. Below these rows, there are maximum profits for each algorithms in four datasets. At the result, every maximum profits are bigger than real profit sum. Also, consumed time to return maximum profit was exceedingly short in ILP and AHP, rather than SA, GA, and NSGA-II. \\
+\textbf{Figure 1} is the graphs of \textbf{table 1}. Each graph expresses the maximum profit of five algorithms. At the result, the maximum profit of ILP is the biggest, and the maximum profit of NSGA-II and AHP is bigger than the maximum profit of SA and GA in most case. Except ILP and AHP, maximum profit is high in order of NSGA-II, GA, then SA. \\
+At experiment 2, we applied four algorithms except NSGA-II to dataset \textit{bugzilla-firefox-comments+priority-2016meancost}. At this experiment, we got the maximum profits while changing the cost constraints. The result is expressed in \textbf{Figure 2} and \textbf{Figure 3}. \textbf{Figure 2} expresses maximum profits on each cost, and \textbf{Figure 3} is integrating graph of \textbf{Figure 2} because of comparing the difference for four algorithms. \\
+The result is that they are all increasing almost linearly and similarly. One of the reasons to perform this experiment was that we wondered if there is a peculiar part in cost-profit graph.(if there is exceeding increase in profit) And at the result, there is no prominently peculiar part, and all the results are increasing normally.
+\section{Conclusion}
+
+
+
+
