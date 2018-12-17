@@ -47,6 +47,21 @@ for some bound $B \in \mathbb{Z}^+$ which represents the limited budget.
 
 \section{Data sets}
 
+
+\begin{table} [H]
+  \caption{Dataset from Bugzilla}
+  \label{tab:commands}
+  \begin{tabular}{cccccl}
+    \toprule
+    &ECLIPSE&FIREFOX-I&FIREFOX-II&FIREFOX-III\\
+    \midrule
+    Cost& 50699.70& 262945.50& 262945.50& 262945.50 \\
+    Profit& 3489.64& 13025.88& 12210& 26332.88 \\
+    \bottomrule
+  \end{tabular}
+\label{table:Dataset}
+\end{table}
+
 \subsection{Bugzilla}
 \subsection{Open Source repository}
 \subsection{Crawling Modeling}
@@ -180,47 +195,43 @@ The main loop of NSGA-II can be described in Algorithm \ref{alg:nsga2}. Initial 
 \end{algorithmic}
 \end{algorithm}
 
-\begin{table*}
-  \caption{Profit Comparison}
-  \label{tab:commands}
-  \begin{tabular}{cccccl}
-    \toprule
-    &eclipse-log&firefox-log&firefox-priority&firefox-comments+priority\\
-    \midrule
-    Estimated Cost&50699.70190&262945.49581&262945.49581&262945.49581 \\
-    Real Profit&3489.63592&13025.88085&12210&26332.88085 \\
-    \hline
-    SA&3702.85182&13524.93411&16300.0&28358.2295685 \\
-    GA&3793.5045&13662.38600&16303.0&28522.11861 \\
-    NSGA-II&3822.47741&13700.52067&16332.6667&28729.33476 \\
-    ILP& \textbf{3825.42768}&\textbf{13768.44722}&\textbf{16336.0}&\textbf{28845.23124} \\
-    AHP&3810.3125825&13758.5577962&16249.0&28811.2749907 \\
-    \bottomrule
-  \end{tabular}
-\label{table:DatasetProfit}
-\end{table*}
+%\begin{table*}
+%  \caption{Profit Comparison}
+%  \label{tab:commands}
+%  \begin{tabular}{cccccl}
+%    \toprule
+%    &eclipse&firefox-I&firefox-II&firefox-III\\
+%    \midrule
+%    Estimated Cost&50699.70190&262945.49581&262945.49581&262945.49581 \\
+%    Real Profit&3489.63592&13025.88085&12210&26332.88085 \\
+%    \hline
+%    SA&3702.85182&13524.93411&16300.0&28358.2295685 \\
+%    GA&3793.5045&13662.38600&16303.0&28522.11861 \\
+%    NSGA-II&3822.47741&13700.52067&16332.6667&28729.33476 \\
+%    ILP& \textbf{3825.42768}&\textbf{13768.44722}&\textbf{16336.0}&\textbf{28%845.23124} \\
+%    AHP&3810.3125825&13758.5577962&16249.0&28811.2749907 \\
+%    \bottomrule
+%  \end{tabular}
+%\label{table:DatasetProfit}
+%\end{table*}
 % end the environment with {table*}, NOTE not {table}!
 
 \begin{figure*}[h]
 \begin{subfigure}{\columnwidth}
 \includegraphics[width=0.9\linewidth]{bugzilla_eclipse_log(comments)_2016meancost.JPG}
-\caption{bugzilla-eclipse-log(comments)-2016meancost}
-\label{fig:subim1}
+\caption{ECLIPSE dataset. \normalfont{The estimated cost is 50699.70190}}
 \end{subfigure}
 \begin{subfigure}{\columnwidth}
 \includegraphics[width=0.9\linewidth]{bugzilla_firefox_log(comments)_2016meancost.JPG}
-\caption{bugzilla-firefox-log(comments)-2016meancost}
-\label{fig:subim2}
+\caption{FIREFOX-I. \normalfont{The estimated cost is 262945.49581}}
 \end{subfigure}
 \begin{subfigure}{\columnwidth}
 \includegraphics[width=0.9\linewidth]{bugzilla_firefox_priority_2016meancost.JPG}
-\caption{bugzilla-firefox-priority-2016meancost}
-\label{fig:subim3}
+\caption{FIREFOX-II. \normalfont{The estimated cost is 262945.49581}}
 \end{subfigure}
 \begin{subfigure}{\columnwidth}
 \includegraphics[width=0.9\linewidth]{bugzilla_firefox_comments-priority_2016meancost.JPG}
-\caption{bugzilla-firefox-comments+priority-2016meancost}
-\label{fig:subim4}
+\caption{FIREFOX-III. \normalfont{The estimated cost is 262945.49581}}
 \end{subfigure}
 
 \caption{Profit Comparison for each dataset}
@@ -256,7 +267,7 @@ The main loop of NSGA-II can be described in Algorithm \ref{alg:nsga2}. Initial 
 
 \begin{table*}[]
 \caption{Profit on each limited budget}
-\begin{tabular}{@{}llllll@{}}
+\begin{tabular}{@{}crrrrr@{}}
 \toprule
 \multicolumn{1}{c}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}The limited\\ budget\end{tabular}}} & \multicolumn{5}{c}{Algorithms}                                                                                                    \\ \cmidrule(l){2-6} 
 \multicolumn{1}{c}{}                                                                              & \multicolumn{1}{c}{AHP} & \multicolumn{1}{c}{ILP} & \multicolumn{1}{c}{SA} & \multicolumn{1}{c}{GA} & \multicolumn{1}{c}{NSGA-II} \\ \midrule
@@ -281,17 +292,28 @@ The main loop of NSGA-II can be described in Algorithm \ref{alg:nsga2}. Initial 
 \end{figure*}
 
 \section{Experimental Set up}
-In this section, we describe two experiments for comparing algorithms on datasets and analyzing correlation between cost and profit. We used four datasets(\textit{eclipse, firefox-I, firefox-II} and \textit{firefox-III}) from Bugzilla on experiments which were described in \textbf{section 4}.
+In this section, we describe two experiments for comparing algorithms on datasets and analyzing correlation between cost and profit. We used four datasets(\textit{ECLIPSE, FIREFOX-I, FIREFOX-II} and \textit{FIREFOX-III}) from Bugzilla on experiments which were described in \textbf{section 4}.
 
-At first experiment(EX1), we applied each algorithm to four datasets in order to compare their performances. And we hope to know the effect by different profit strategies through analyzing \textit{firefox-I}, \textit{firefox-II}, and \textit{firefox-III} dataset.
+At first experiment(EX1), we applied each algorithm to four datasets in order to compare their performances. And we hope to know the effect by different profit strategies through analyzing \textit{FIREFOX-I}, \textit{FIREFOX-II}, and \textit{FIREFOX-III} dataset.
 
-At second experiment(EX2), we applied each algorithm to \textit{firefox-III} dataset to analyze the correlation between cost and profit. And also, we expected to get the interesting range which have a great change as the limted budget are increased or decreased.
+At second experiment(EX2), we applied each algorithm to \textit{FIREFOX-III} dataset to analyze the correlation between cost and profit. And also, we expected to get the interesting range which have a great change as the limited budget are increased or decreased.
 
-All heuristic approaches(SA, GA and NSGA-II) were run for 500,000 function evaluations. SA started from a greedy solution and GA and NSGA-II started from the initial population which contains a greedy solution. The population size was set to 200. So each experimental execution of GA and NSGA-II was terminated when the generation number reached 2,500. GA and NSGA-II used the tournament selection(tournament size is 5), single-point cross-over, and bit-wise mutation for binary-coded GAs. The cross-over probability and the mutation probability were set to 0.8 and 1/N (where N is the length of chromosome same with the number of requirements).
+All heuristic approaches(SA, GA and NSGA-II) were run for 500,000 function evaluations. SA started from a greedy solution and GA and NSGA-II started from the initial population which contains a greedy solution. The population size was set to 200. So each experimental execution of GA and NSGA-II was terminated when the generation number reached 2,500. GA and NSGA-II used the tournament selection(tournament size is 5), single-point cross-over, and bit-wise mutation for binary-coded GAs. The cross-over probability and the mutation probability were set to 0.8 and 1/N (where N is the length of chromosome same with the number of requirements). Every heuristic algorithms were executed 3 times for each experiment.
 
 
 \section{Result and Analysis}
-At first experiment, we applied five algorithms to four datasets and compared the maximum profit each other. In \textbf{table \ref{table:DatasetProfit}}, upper two rows are estimated cost sum and real profit sum of each datasets. Below these rows, there are averaged profits for each algorithms on four datasets. At the result, every profits for algorithms are bigger than real profit sum. Also, consumed time to return maximum profit was exceedingly short in ILP and AHP, rather than SA, GA, and NSGA-II.
+\subsection{Experiment 1}
+At EX1, we applied two deterministic and three heuristic algorithms to four datasets and compared the averaged profit to each other. Figure \ref{fig:DatasetProfit} shows the results of EX1. Each graph expresses the averaged profit of five algorithms under the limited budget(or the estimated cost).
+
+In these results, the averaged profit of each algorithm were bigger than the real profit in Table \ref{table:Dataset}. In every case, the ILP has the biggest profit. However, the order of other algorithms are slightly changed for dataset.
+
+The SA has the smallest profit in most cases, except Figure \ref{fig:DatasetProfit}-(c). We thought that the reason of that are due to its too slow convergence.
+
+\subsection{Experiment 2}
+
+
+
+At first experiment, we applied five algorithms to four datasets and compared the maximum profit each other. In \textbf{Table \ref{table:DatasetProfit}}, upper two rows are estimated cost sum and real profit sum of each datasets. Below these rows, there are averaged profits for each algorithms on four datasets. At the result, every profits for algorithms are bigger than real profit sum. Also, consumed time to return maximum profit was exceedingly short in ILP and AHP, rather than SA, GA, and NSGA-II.
 
 \textbf{Figure \ref{fig:DatasetProfit}} is the graphs of \textbf{table 1}. Each graph expresses the averaged profit of five algorithms. At the result, the profit of ILP is the biggest, and the profit of NSGA-II and AHP is bigger than SA and GA in most case. Except ILP and AHP, maximum profit is high in order of NSGA-II, GA, then SA.
 
