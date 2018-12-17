@@ -46,6 +46,58 @@ subject to
 for some bound $B \in \mathbb{Z}^+$ which represents the limited budget.
 
 \section{Data sets}
+We tried to implement a dataset in the real industry.
+
+\subsection{Bugzilla}
+
+We chose Bugzilla where we could get the data source. 
+
+Bugzilla is a web-based, general purpose bug tracker and test tool originally developed and used by the Mozilla project. When users or developers report bugs to the repository for each project in Bugzilla, the project manager or the developer in charge identifies them, reflects them on the product, or re-prioritizes them.
+
+The biggest reason for choosing Bugzilla is that all the data is open. The actual requirements normally are not disclosed for security reasons. However, all the data is open because Bugzilla has to report on the bug. It also contains a number of data that can be used to estimates the cost and profit. The most recent version was announced in the 15th year, and many open sources, including the Mozilla Project, are actively using bug tracking.
+
+Here are some of the Bugzilla sites in operation.
+
+\textbf{Mozilla} -\textit{https://bugzilla.mozilla.org/}
+
+\textbf{Eclipse} -\textit{ https://bugs.eclipse.org/bugs/}
+
+We can assume that one bug is a requirement. And once you've solved this bug report, you can think of it as reflected in the next version.
+
+\subsection{Open Source repository}
+
+Now many open sources are actively using Bugzilla. We chose two of the most famous open sources, Firefox and Eclipse. Each repository consists of several platforms inside the open source. We decided to extract data from the two platforms where the most bugs were resolved in 2017. The \textbf{Firefox Web browser} platform was selected in the Firefox repository, and the \textbf{Eclipse platform} was selected in the Eclipse repository.
+
+
+\subsection{Crawling Modeling}
+
+We decided to create a dataset based on data from 2017. The reason is that if too many previous years of data are used, unresolved bugs are more likely to be reported incorrectly or missing than being pushed out of the priority list. Also, for real value comparison, we  needed some time to solve the bug, so we targeted 2017.
+
+It's a little bit difficult to apply them right into the NRP problem because they're being reflected in the product in real time deployment. So we extract the data set based on a few assumptions:
+
+\textbf{Requirements for 2017} : 2017. 1. 1. 00:00 to 2017. 12. 31 59:59 The issues registered in 2017 but not resolved shall be considered as requirements for products.
+
+\textbf{Bugs Resolved in 2018 (true value)}: In the 2017 requirement, they are considered to be the requirements reflected in the next version of the actual product are considered.
+
+The results of our target project are as follows table1
+\begin{table} [H]
+  \caption{Number of requirements}
+  \label{tab:commands}
+  \begin{tabular}{cccccl}
+    \toprule
+    &ECLIPSE PLATFORM&FIREFOX BROWSER\\
+    \midrule
+    Reported in 2017& 1 & 1 \\
+    Resolved in 2018 & 1&1 \\
+    \bottomrule
+  \end{tabular}
+\label{table:Dataset}
+\end{table}
+
+
+\subsection{Research Question}
+\subsection{Profit}
+\subsection{Cost}
 
 
 \begin{table} [H]
@@ -62,12 +114,7 @@ for some bound $B \in \mathbb{Z}^+$ which represents the limited budget.
 \label{table:Dataset}
 \end{table}
 
-\subsection{Bugzilla}
-\subsection{Open Source repository}
-\subsection{Crawling Modeling}
-\subsection{Research Question}
-\subsection{Profit}
-\subsection{Cost}
+
 
 \section{Algorithms}
 We applied two deterministic algorithms(AHP and ILP) and three heuristic algorithms(SA, GA and NSGA-II) which were introduced as the algorithms well-suited for the NRP in papers\cite{NRP}\cite{ILP}\cite{IGA}\cite{MONRP}. And, to encourage the performance of heuristic algorithms, we put a greedy solution into the initial population or initial decision vector.
