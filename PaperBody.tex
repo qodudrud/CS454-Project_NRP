@@ -87,8 +87,8 @@ The results of our target project are as follows table1
     \toprule
     &ECLIPSE PLATFORM&FIREFOX BROWSER\\
     \midrule
-    Reported in 2017& 1 & 1 \\
-    Resolved in 2018 & 1&1 \\
+    Reported in 2017& 2053 & 5593 \\
+    Resolved in 2018 & 817 & 2938 \\
     \bottomrule
   \end{tabular}
 \label{table:Dataset}
@@ -112,7 +112,7 @@ We're trying to extract the estimated cost and profit values from the crawled da
     \includegraphics[width=\linewidth]{images/boxplot.png}
     \caption{Priority-Log(number of comments)}
   \end{subfigure}
-  \caption{The same cup of coffee. Two times.}
+  \caption{The relation ship between Priority and Number of Comments}
   \label{fig:priority_comments}
 \end{figure*}
 \begin{figure*}[h]
@@ -163,26 +163,41 @@ We have concluded that we can speculate on Profit. Based on the manager's thinki
  Unlike Profit, the Cost was a very difficult task to figure out the actual prediction. In fact, it's very difficult for a product manager to calculate the time cost of a particular requirement, and the developers working on the actual task are just guessing how much time they'll take. 
  So we defined the Cost as: 
  
-Cost: Average resolution time for the requirements of the same component as the previous year
+\textbf{Cost}: \textit{Average resolution time for the requirements of the same component as the previous year}
 
 Bugzilla's repositories are divided into each component. We assumed that the average time it takes to fix the bug for each component would be a constant in next year. Therefore, We concluded that the average bug modification time for each component in 2017 would not be much different from 2016. So the Cost of each requirement was used as a prediction index for the average Cost of that component in 2016.
 
+ To illustrate this, we compared the average time cost in 2016 to the average time cost in 2017. Figure 2 describes this.
+ 
+As Figure 2.(a) shows, the first, the result in Eclipse repository is quite accurate. The average bug resolution time was similar than we expected. Some exceptions have been found to exist, but more than 60 percent of the components actually match.
+
+But for Figure 2.(b) the result in Firefox repository, we can also see that the order of each component, including absolute time-consuming values, is not quite correct. In Firefox, it was updated almost 200 times a year. Therefore, in 2016 and 2017, the code was not maintained the same, so it make that the actual cost are not constant among the years. 
+
+\textbf{RQ2}. \textit{Could we estimate COST from Bugzilla without Forward Looking?}
+
+We have concluded that it is possible to use the past Cost only for projects where updates are infrequent, i.e. projects with some constant structure. This estimate process has many limitations to be used in real industry. It's a very change-sensitive indicator, and it has the potential to be wrong at any time. However, in order to estimate this more accurately, it would be the only way for the developer or project manager to specify the actual estimated time cost. In the absence of such direct data, our estimates will be meaningful.
+
 
 \subsection{Result}
-
+In conclusion, we were able to create 4 data sets.
 \begin{table} [H]
   \caption{Dataset from Bugzilla}
   \label{tab:commands}
   \begin{tabular}{cccccl}
     \toprule
-    &ECLIPSE&FIREFOX-I&FIREFOX-II&FIREFOX-III\\
+    Repository&Profit definition&True Cost&True Profit\\
+    % &ECLIPSE&FIREFOX-I&FIREFOX-II&FIREFOX-III\\
     \midrule
-    Cost& 50699.70& 262945.50& 262945.50& 262945.50 \\
-    Profit& 3489.64& 13025.88& 12210& 26332.88 \\
+    ECLIPSE-I&Log(comments)&50699.70& 3489.64 \\
+    FIREFOX-I&Log(comments)& 262945.50& 13025.8 \\
+    FIREFOX-II&Priority& 262945.50& 12210 \\
+    FIREFOX-III&Priority+Log(comments)& 262945.50& 26332.88 \\
     \bottomrule
   \end{tabular}
 \label{table:Dataset}
 \end{table}
+
+In Firefox, the profit was able to use both Priority and Number of Comments, creating a total of three data sets, including each case and the sum of the two indicators. The table also shows the true value of cost & profit that was resolved in 2018. We're going to use this dataset to compare the results of the actual search-based algorithms in the next section.
 
 
 
