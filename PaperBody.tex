@@ -102,8 +102,32 @@ We're trying to extract the estimated cost and profit values from the crawled da
 \textbf{RQ1}. \textit{Could we estimate PROFIT from Bugzilla without Forward Looking?}
 
 \textbf{RQ2}. \textit{Could we estimate COST from Bugzilla without Forward Looking?}
-
-
+\begin{figure*}[h]
+\centering
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/boxplotraw.png}
+    \caption{Priority-number of comments}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/boxplot.png}
+    \caption{Priority-Log(number of comments)}
+  \end{subfigure}
+  \caption{The same cup of coffee. Two times.}
+  \label{fig:priority_comments}
+\end{figure*}
+\begin{figure*}[h]
+\centering
+  \begin{subfigure}[b]{0.9\linewidth}
+    \includegraphics[width=\linewidth]{images/chart_ec.png}
+    \caption{Eclipse}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.9\linewidth}
+    \includegraphics[width=\linewidth]{images/chart_ff.png}
+    \caption{Firefox}
+  \end{subfigure}
+  \caption{Average Time cost at 2016 and 2017 per components}
+  \label{fig:time_cost}
+\end{figure*}
 \subsection{Profit}
 
  Profit is an indicator of how much the value of the product has increased when the company has addressed this requirement. There were two indicators in Bugzilla that directly represented this value.
@@ -125,9 +149,9 @@ Among these, the indicators with sufficient coverage of the data were \textit{Pr
 
 \textbf{Number of Comments}: An indicator of how much Discussion has occurred in the requirements. We assumed that the requirements would have a high priority if Discussion had occurred in those requirements.
 
- To find out, we compared the actual Priority to the Number of Comments. Figure n shows this as a box plot. The higher the priority, the more the comment. However, you can see that there are too many outliers and that the data is distributed asymmetrically. This is because the number of comments follows a log distribution. So we applied the logarithmic function to the number of commands and then we compared it again. This is shown in Figure n+1. 
+ To find out, we compared the actual Priority to the Number of Comments. Figure 1.(a) shows this as a box plot. The higher the priority, the more the comment. However, you can see that there are too many outliers and that the data is distributed asymmetrically. This is because the number of comments follows a log distribution. So we applied the logarithmic function to the number of commands and then we compared it again. This is shown in Figure 1.(b) 
 
-As Figure shows, Priority and Member of Comments have a linear relationship. Unlike Priority, Number of segments has a constant distribution of values and various values by requirement. Number of Comments is better than Priority to apply the actual search-based algorithm. 
+As Figure 1.(b) shows, Priority and Member of Comments have a linear relationship. Unlike Priority, Number of segments has a constant distribution of values and various values by requirement. Number of Comments is better than Priority to apply the actual search-based algorithm. 
 
 \textbf{RQ1}.\textit{ Could we estimate PROFIT from Bugzilla without Forward Looking?}
 
@@ -135,6 +159,14 @@ We have concluded that we can speculate on Profit. Based on the manager's thinki
 
 
 \subsection{Cost}
+
+ Unlike Profit, the Cost was a very difficult task to figure out the actual prediction. In fact, it's very difficult for a product manager to calculate the time cost of a particular requirement, and the developers working on the actual task are just guessing how much time they'll take. 
+ So we defined the Cost as: 
+ 
+Cost: Average resolution time for the requirements of the same component as the previous year
+
+Bugzilla's repositories are divided into each component. We assumed that the average time it takes to fix the bug for each component would be a constant in next year. Therefore, We concluded that the average bug modification time for each component in 2017 would not be much different from 2016. So the Cost of each requirement was used as a prediction index for the average Cost of that component in 2016.
+
 
 \subsection{Result}
 
