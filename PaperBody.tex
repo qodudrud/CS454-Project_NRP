@@ -12,7 +12,7 @@ And in Section 5, we're going to apply different search-based algorithms to the 
 
 All codes used in the paper can be found at 
 
-https://github.com/shkevinlee/CS454
+https://github.com/shkevinlee/CS454 \\ and the brief test implementation is described in \textbf{Test.py} in there.
 
 \section{Related Work}
 The Next Release Problem(NRP)\cite{NRP} was proposed by Bagnall et al in 2001. In this paper, authors considered requirements which can be dependent on other requirements. And also, they set the importance(or weight) of each customer who demands for resolving requirements to company. They applied several heuristic method(various versions of simulated annealing and hill climbers) and concluded that the simulated annealing algorithm found the best solutions using only modes amounts of computing time in their dataset.
@@ -446,13 +446,8 @@ One of the reasons to perform EX2 was that we wondered if there is a peculiar pa
 
 \textbf{RQ6} \textit{Which algorithm and profit strategy are more similar to the real dataset?}
 
-%At first experiment, we applied five algorithms to four datasets and compared the maximum profit each other. In \textbf{Table \ref{table:DatasetProfit}}, upper two rows are estimated cost sum and real profit sum of each datasets. Below these rows, there are averaged profits for each algorithms on four datasets. At the result, every profits for algorithms are bigger than real profit sum. Also, consumed time to return maximum profit was exceedingly short in ILP and AHP, rather than SA, GA, and NSGA-II.
 
-%\textbf{Figure \ref{fig:DatasetProfit}} is the graphs of \textbf{table 1}. Each graph %expresses the averaged profit of five algorithms. At the result, the profit of ILP is %the biggest, and the profit of NSGA-II and AHP is bigger than SA and GA in most case. %Except ILP and AHP, maximum profit is high in order of NSGA-II, GA, then SA.
 
-%At experiment 2, we got the profits while changing the cost constraint. The result is expressed in \textbf{Figure \ref{fig:paretofronts}}. \textbf{Figure \ref{fig:paretofronts}} expresses maximum profits on each cost, and \textbf{Figure 3} is integrating graph of \textbf{Figure 2} because of comparing the difference for four algorithms.
-
-%The result is that they are all increasing almost similarly. One of the reasons to perform this experiment was that we wondered if there is a peculiar part in cost-profit graph.(if there is exceeding increase in profit) And at the result, there is no prominently peculiar part, and all the results are increasing normally.
 
 \begin{table*}[t]
 \caption{EX2 - Profit on each limited budget}
@@ -472,13 +467,14 @@ One of the reasons to perform EX2 was that we wondered if there is a peculiar pa
 \end{tabular}
 \label{table:ParetoFront}
 \end{table*}
+
 \begin{figure*}[h]
 \centering
   \begin{subfigure}[b]{0.95\linewidth}
     \includegraphics[width=\linewidth]{images/heatmap_ec.png}
   \end{subfigure}
-  \caption{Requirements Heatmap in Eclipse Repositories(white = selected, Black = unselected)}
-  \label{fig:time_cost}
+  \caption{EX3-Requirements Heatmap in Eclipse Repositories(white = selected, Black = unselected)}
+  \label{fig:EclipseHeatmap}
 \end{figure*}
 
 \section{Conclusion}
