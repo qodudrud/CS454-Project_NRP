@@ -442,17 +442,6 @@ To see the effect of different profit strategy, let's see the figure \ref{fig:Da
 At EX2, we got the profits while changing the cost constraint. The result is expressed in Table \ref{table:ParetoFront}. In the results, profits of each algorithms are all increasing almost similarly and the order of profits(ILP, AHP. NSGA-II, GA, then SA) are same in every case. And also, we observed that the change of profits become smaller as the limited budget increases.
 
 One of the reasons to perform EX2 was that we wondered if there is a peculiar part in cost-profit graph. However, we cannot observe prominently peculiar part on EX2.\\
-
-
-\textbf{RQ6} \textit{Which algorithm and profit strategy are more similar to the real dataset?}
-
-Table \ref{table:Recall} and figure \ref{fig:EclipseHeatmap} show the results of the EX3. In table \ref{table:Recall}, we presented the recall of each algorithms. The recall is the ratio between the number of $1$s in the decision vector $\textbf{x}$ and the number of resolved requirements in the real dataset. In ECLIPSE, FIREFOX-I, and FIREFOX-III, we can verify that each algorithms has a high recall values above 0.75 and the recall value increases as higher maximum profit was got in EX1. It can be easily confirmed on figure \ref{fig:EclipseHeatmap}. Therefore, we can concludet that the profit strategy of ECLIPSE, FIREFOX-I and FIREFOX-III are similar to the real world dataset.
-
-However, in FIREFOX-II, all algorithms had lower recall values than other datasets. But we can see that AHP has much higher recall values than other algorithms. 
-
-
-In the table, we can verify that it has a high recall value as higher maximum profit in EX1, except FIREFOX-II. 
-
 \begin{table*}[t]
 \caption{EX2 - Profit on each limited budget}
 \begin{tabular}{@{}crrrrr@{}}
@@ -471,7 +460,6 @@ In the table, we can verify that it has a high recall value as higher maximum pr
 \end{tabular}
 \label{table:ParetoFront}
 \end{table*}
-
 \begin{table*}[t]
 \caption{EX3 - Recall of each algorithms on four datasets}
 \begin{tabular}{@{}crrrrr@{}}
@@ -481,10 +469,20 @@ In the table, we can verify that it has a high recall value as higher maximum pr
 ECLIPSE & 0.77300 & 0.81435 & 0.82025 & \textbf{0.82700} & 0.82363\\
 FIREFOX-I & 0.82973 & 0.83395 & 0.85876 & 0.86721 & \textbf{0.87302}\\
 FIREFOX-II & 0.56917 & 0.57154 & 0.60507 & 0.61536 & \textbf{0.79725}\\
-FIREFOX-III & 0.68268 & 0.70486 & 0.74155 & 0.76637 & 0.78300\\\bottomrule
+FIREFOX-III & 0.68268 & 0.70486 & 0.74155 & 0.76637 & \textbf{0.78300}\\\bottomrule
 \end{tabular}
 \label{table:Recall}
 \end{table*}
+
+\textbf{RQ6} \textit{Which algorithm and profit strategy are more similar to the real dataset?}
+
+Table \ref{table:Recall}, figure \ref{fig:EclipseHeatmap}, figure \ref{fig:FirefoxIHeatmap}, figure \ref{fig:FirefoxIIHeatmap} and figure \ref{fig:FirefoxIIIHeatmap} show the results of the EX3. In table \ref{table:Recall}, we presented the recall of each algorithms. The recall is the ratio between the number of $1$s which is also resolved in dataset in the decision vector $\textbf{x}$ and the number of resolved requirements in the real dataset. In ECLIPSE and FIREFOX-I, we can verify that each algorithms has a high recall values above 0.75 and the recall value increases as higher maximum profit was got in EX1. It can be easily confirmed on figure \ref{fig:EclipseHeatmap} and \ref{fig:FirefoxIHeatmap}. Therefore, we can conclude that the profit strategy of ECLIPSE and FIREFOX-I which use the log of comments are similar to the real world dataset.
+
+However, in FIREFOX-II, all algorithms had lower recall values than other datasets. But we can see that AHP has much higher recall values than other algorithms. It is not matched result to EX1. In the figure \ref{fig:DatasetProfit}-(c) which is the result of EX1 on FIREFOX-II, AHP had the lowest profit among the algorithms. Therefore, we can conclude that the profit strategy of FIREFOX-II is not matched to the real world. 
+
+The result of FIREFOX-III was between FIREFOX-I and FIREFOX-II because its profit strategy is the mixed version of them. 
+
+In most cases, AHP has the best recall values among the algorithms. But FIREFOX-II and FIREFOX-III are concluded that they are not matched to real dataset, and in the ECILPSE, ILP has a higher recall value than AHP. Therefore, we cannot conclude which algorithms are more similar to the real dataset.
 
 
 \begin{figure*}[h]
@@ -501,7 +499,7 @@ FIREFOX-III & 0.68268 & 0.70486 & 0.74155 & 0.76637 & 0.78300\\\bottomrule
     \includegraphics[width=\linewidth]{images/heatmap_ff1.png}
   \end{subfigure}
   \caption{EX3-Requirements Heatmap in FIREFOX-I(white = selected, Black = unselected)}
-  \label{fig:EclipseHeatmap}
+  \label{fig:FirefoxIHeatmap}
 \end{figure*}
 \begin{figure*}[h]
 \centering
@@ -509,7 +507,7 @@ FIREFOX-III & 0.68268 & 0.70486 & 0.74155 & 0.76637 & 0.78300\\\bottomrule
     \includegraphics[width=\linewidth]{images/heatmap_ff2.png}
   \end{subfigure}
   \caption{EX3-Requirements Heatmap in FIREFOX-II(white = selected, Black = unselected)}
-  \label{fig:EclipseHeatmap}
+  \label{fig:FirefoxIIHeatmap}
 \end{figure*}
 \begin{figure*}[h]
 \centering
@@ -517,14 +515,14 @@ FIREFOX-III & 0.68268 & 0.70486 & 0.74155 & 0.76637 & 0.78300\\\bottomrule
     \includegraphics[width=\linewidth]{images/heatmap_ff3.png}
   \end{subfigure}
   \caption{EX3-Requirements Heatmap in FIREFOX-III(white = selected, Black = unselected)}
-  \label{fig:EclipseHeatmap}
+  \label{fig:FirefoxIIIHeatmap}
 \end{figure*}
 \section{Conclusion}
 The research question we presented was two things.
 The RQ1. "Could we estimate profit from Bugzilla without forward looking?". We were able to get a proposal for the demand of custmers in Bugzilla through Priority and Comment. The RQ2. "Could we estimate profit from Bugzilla without forward looking?". We define the Cost in Bugzilla as time. The component's Cost is not accurate. However, the costs are not meaningless given the trends of 2016 and 2017. With this research question, we have built a dataset in the real world for NRP research.
 
 In the results of the experiment.
-EX1. was profit comparison. Exept for dataset with priority, the ILP has the highest result. And deterministic algorithms that AHP and ILP are very fast than heuristic algorithms. And Ex1 can answer RQ3 and RQ4. Ex2. is a comparison of the results of the profit according to the cost limit. As we mentioned, we found that limits of the Cost and the Profit had a linear relationship, regardless of algorithm. but it doesn't seem have much meaning. In RQ6. The result of algorithms were similar to those actual selection. These results show that tere are no major problems with applying NRP argorithms to our dataset. Therefore, the dataset was well set to solve the NRP.
+EX1. was profit comparison. Exept for dataset with priority, the ILP has the highest result. And deterministic algorithms that AHP and ILP are very fast than heuristic algorithms. And Ex1 can answer RQ3 and RQ4. Ex2. is a comparison of the results of the profit according to the cost limit. As we mentioned, we found that limits of the Cost and the Profit had a linear relationship, regardless of algorithm. but it doesn't seem have much meaning. In RQ6. The result of algorithms were similar to those actual selection. These results show that there are no major problems with applying NRP argorithms to our dataset. Therefore, the dataset was well set to solve the NRP.
 
 In previous NRP studies, both dataset were applied with the random Cost and Profit values. But our project use actual situations value. It also showed that the NRP's algorithm worked well. In this way, later NRP studies have shown the possibility of using real situations rather than random values. 
 
