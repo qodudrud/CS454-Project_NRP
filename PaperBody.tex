@@ -8,7 +8,7 @@
 Section 2 introduces the related paper about our topic. Section 3 introduces the basic model of the NRP problem that we are currently dealing with in our report.
 
 We divided the main part of the report into two parts. First, in section 4, we will organize the requirements in the actual product and create a dataset. And in this process, we're not going to use any random variables, and we're not going to bring in actual profit and cost from the future. 
-And in Section 5, we're going to apply different search-based algorithms to the datasets that we've created. In addition to SA, GA, and NSGA2, we also implemented ILH and AHP directly and applied them to datasets. We will apply them to actual datasets and compare the performance of each algorithm in terms of time cost and optimization answers. And we'll also see how much search-based algorithm has increased the profit compared to the actual true value.
+And in Section 5, we're going to apply different search-based algorithms to the datasets that we've created. In addition to SA, GA, and NSGA2, we also implemented ILP and AHP directly and applied them to datasets. We will apply them to actual datasets and compare the performance of each algorithm in terms of time cost and optimization answers. And we'll also see how much search-based algorithm has increased the profit compared to the actual true value.
 
 All codes used in the paper can be found at 
 
@@ -97,7 +97,7 @@ The results of our target project are as follows table1
 
 \subsection{Research Question}
 
-We're trying to extract the estimated cost and profit values from the crawled dataset. Our research question can be divided into two main areas.
+We're trying to extract the estimated cost and profit values from the crawled dataset. Our research question about dataset can be divided into two main areas.
 
 \textbf{RQ1}. \textit{Could we estimate PROFIT from Bugzilla without Forward Looking?}
 
@@ -343,14 +343,30 @@ The main loop of NSGA-II can be described in Algorithm \ref{alg:nsga2}. Initial 
 %\end{figure*}
 
 
-\section{Experimental Set up}
-In this section, we describe two experiments for comparing algorithms on datasets and analyzing correlation between cost and profit. We used four datasets(\textit{ECLIPSE, FIREFOX-I, FIREFOX-II} and \textit{FIREFOX-III}) from Bugzilla on experiments which were described in \textbf{section 4}.
+\section{Experiments}
+In this section, we describe what research questions were set and what experiments were performed to answer them. We used four datasets(\textit{ECLIPSE, FIREFOX-I, FIREFOX-II} and \textit{FIREFOX-III}) from Bugzilla on experiments which were described in \textbf{section 4}.
 
-At first experiment(EX1), we applied each algorithm to four datasets in order to compare their performances. And we hope to know the effect by different profit strategies through analyzing \textit{FIREFOX-I}, \textit{FIREFOX-II}, and \textit{FIREFOX-III} dataset.
+\subsection{Research Questions}
 
-At second experiment(EX2), we applied each algorithm to \textit{FIREFOX-III} dataset to analyze the correlation between cost and profit. And also, we expected to get the interesting range which have a great change as the limited budget are increased or decreased.
+The experiments we conducted aim at answering the following research questions:\\
+ 
+\textbf{RQ3} \textit{Which algorithms are well-suited for our datasets?}
 
+\textbf{RQ4} \textit{Could the different profit strategy affect the performance of algorithm?}
+
+At first experiment(EX1), we applied each algorithm to four datasets in order to compare their performances. And we hope to know the effect by different profit strategies through analyzing \textit{FIREFOX-I}, \textit{FIREFOX-II}, and \textit{FIREFOX-III} dataset which are based on FIRFOX dataset but has a different profit strategy.\\
+
+\textbf{RQ5} \textit{What is the correlation between cost and profit?}
+
+At second experiment(EX2), we applied each algorithm to \textit{FIREFOX-III} dataset to analyze the correlation between cost and profit. And also, we expected to get the interesting range which have a great change as the limited budget are increased or decreased.\\
+
+\textbf{RQ6} \textit{Which algorithm and profit strategy are more similar to the real dataset?}
+
+To identify how much our solution are similar to the real world, at third experiment(EX3), we compared the similarity between the real resolved set and the decision vector which is a result of each algorithms.\\ 
+
+\subsection{Experimental set up}
 All heuristic approaches(SA, GA and NSGA-II) were run for 500,000 function evaluations. SA started from a greedy solution and GA and NSGA-II started from the initial population which contains a greedy solution. The population size was set to 200. So each experimental execution of GA and NSGA-II was terminated when the generation number reached 2,500. GA and NSGA-II used the tournament selection(tournament size is 5), single-point cross-over, and bit-wise mutation for binary-coded GAs. The cross-over probability and the mutation probability were set to 0.8 and 1/N (where N is the length of chromosome same with the number of requirements). Every heuristic algorithms were executed 3 times for each experiment.
+
 
 
 \section{Result and Analysis}
