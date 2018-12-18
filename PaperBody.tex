@@ -446,6 +446,12 @@ One of the reasons to perform EX2 was that we wondered if there is a peculiar pa
 
 \textbf{RQ6} \textit{Which algorithm and profit strategy are more similar to the real dataset?}
 
+Table \ref{table:Recall} and figure \ref{fig:EclipseHeatmap} show the results of the EX3. In table \ref{table:Recall}, we presented the recall of each algorithms. The recall is the ratio between the number of $1$s in the decision vector $\textbf{x}$ and the number of resolved requirements in the real dataset. In ECLIPSE, FIREFOX-I, and FIREFOX-III, we can verify that each algorithms has a high recall values above 0.75 and the recall value increases as higher maximum profit was got in EX1. It can be easily confirmed on figure \ref{fig:EclipseHeatmap}. Therefore, we can concludet that the profit strategy of ECLIPSE, FIREFOX-I and FIREFOX-III are similar to the real world dataset.
+
+However, in FIREFOX-II, all algorithms had lower recall values than other datasets. But we can see that AHP has much higher recall values than other algorithms. 
+
+
+In the table, we can verify that it has a high recall value as higher maximum profit in EX1, except FIREFOX-II. 
 
 \begin{table*}[t]
 \caption{EX2 - Profit on each limited budget}
@@ -467,14 +473,14 @@ One of the reasons to perform EX2 was that we wondered if there is a peculiar pa
 \end{table*}
 
 \begin{table*}[t]
-\caption{EX3 - Recal of each algorithms on four datasets}
+\caption{EX3 - Recall of each algorithms on four datasets}
 \begin{tabular}{@{}crrrrr@{}}
 \toprule
 \multicolumn{1}{c}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}The limited\\ budget\end{tabular}}} & \multicolumn{5}{c}{Algorithms}                                                                                                    \\ \cmidrule(l){2-6} 
-\multicolumn{1}{c}{}                                                                              & \multicolumn{1}{c}{SA} & \multicolumn{1}{c}{GA} & \multicolumn{1}{c}{NSGA-II} & \multicolumn{1}{c}{AHP} & \multicolumn{1}{c}{ILP} \\ \midrule
-ECLIPSE & 0.77300 & 0.81435 & 0.82025 & 0.82700 & 0.82363\\
-FIREFOX-I & 0.82973 & 0.00000 & 0.85876 & 0.86721 & 0.87302\\
-FIREFOX-II & 0.56917 & 0.00000 & 0.60507 & 0.61536 & 0.79725\\
+\multicolumn{1}{c}{}                                                                              & \multicolumn{1}{c}{SA} & \multicolumn{1}{c}{GA} & \multicolumn{1}{c}{NSGA-II} & \multicolumn{1}{c}{ILP} & \multicolumn{1}{c}{AHP} \\ \midrule
+ECLIPSE & 0.77300 & 0.81435 & 0.82025 & \textbf{0.82700} & 0.82363\\
+FIREFOX-I & 0.82973 & 0.00000 & 0.85876 & 0.86721 & \textbf{0.87302}\\
+FIREFOX-II & 0.56917 & 0.00000 & 0.60507 & 0.61536 & \textbf{0.79725}\\
 FIREFOX-III & 20906.31785& \textbf{20934.94744}& 20559.69749& 20656.69427& 20873.08535\\\bottomrule
 \end{tabular}
 \label{table:Recall}
