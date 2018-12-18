@@ -102,7 +102,8 @@ We're trying to extract the estimated cost and profit values from the crawled da
 \textbf{RQ1}. \textit{Could we estimate PROFIT from Bugzilla without Forward Looking?}
 
 \textbf{RQ2}. \textit{Could we estimate COST from Bugzilla without Forward Looking?}
-\begin{figure*}[h]
+
+\begin{figure*}
 \centering
   \begin{subfigure}[b]{0.45\linewidth}
     \includegraphics[width=\linewidth]{images/boxplotraw.png}
@@ -179,7 +180,9 @@ We have concluded that it is possible to use the past Cost only for projects whe
 
 
 \subsection{Result}
-In conclusion, we were able to create 4 data sets.
+
+In conclusion, we were able to create 4 data sets. In Firefox, the profit was able to use both Priority and Number of Comments, creating a total of three data sets, including each case and the sum of the two indicators. The table also shows the true value of cost and profit that was resolved in 2018. We're going to use this dataset to compare the results of the actual search-based algorithms in the next section.
+
 \begin{table} [H]
   \caption{Dataset from Bugzilla}
   \label{tab:commands}
@@ -196,9 +199,6 @@ In conclusion, we were able to create 4 data sets.
   \end{tabular}
 \label{table:Dataset}
 \end{table}
-
-In Firefox, the profit was able to use both Priority and Number of Comments, creating a total of three data sets, including each case and the sum of the two indicators. The table also shows the true value of cost & profit that was resolved in 2018. We're going to use this dataset to compare the results of the actual search-based algorithms in the next section.
-
 
 
 \section{Algorithms}
@@ -286,7 +286,7 @@ maximize -\sum_{i = 1}^{N} cost_i \cdot x_i
 
 The result of NSGA-II is the Pareto front on two objective function space. So, to get the optimal decision vector among them, we selected one which has maximum profits under the limited budget among the Pareto front.
 
-The main loop of NSGA-II can be described in Algorithm \ref{alg:nsga2}. Initial population is randomly created except one which is greedy solution. The \textit{make-new-pop} function consist of tournament selection, cross-over, and mutation operator which are used to create a child population.
+The main loop of NSGA-II can be described in Algorithm \ref{alg:nsga2}. Initial population is randomly created except one which is greedy solution. The \textit{make-new-pop} function consist of tournament selection, cross-over, and mutation operator which are used to create a child population. And, 
 
 \begin{algorithm}
 \caption{NSGA-II}\label{alg:nsga2}
@@ -410,7 +410,7 @@ At second experiment(EX2), we applied each algorithm to \textit{FIREFOX-III} dat
 
 \textbf{RQ6} \textit{Which algorithm and profit strategy are more similar to the real dataset?}
 
-To identify how much our solution are similar to the real world, at third experiment(EX3), we compared the similarity between the real resolved set and the decision vector which is a result of each algorithms.\\ 
+To identify how much our solution are similar to the real world, at third experiment(EX3), we compared the similarity between the real resolved set and the decision vector which is a result of each algorithms.
 
 \subsection{Experimental set up}
 All heuristic approaches(SA, GA and NSGA-II) were run for 500,000 function evaluations. SA started from a greedy solution and GA and NSGA-II started from the initial population which contains a greedy solution. The population size was set to 200. So each experimental execution of GA and NSGA-II was terminated when the generation number reached 2,500. GA and NSGA-II used the tournament selection(tournament size is 5), single-point cross-over, and bit-wise mutation for binary-coded GAs. The cross-over probability and the mutation probability were set to 0.8 and 1/N (where N is the length of chromosome same with the number of requirements). Every heuristic algorithms were executed 3 times for each experiment.
