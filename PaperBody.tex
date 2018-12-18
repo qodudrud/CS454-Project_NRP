@@ -96,9 +96,47 @@ The results of our target project are as follows table1
 
 
 \subsection{Research Question}
+
+We're trying to extract the estimated cost and profit values from the crawled dataset. Our research question can be divided into two main areas.
+
+\textbf{RQ1}. \textit{Could we estimate PROFIT from Bugzilla without Forward Looking?}
+
+\textbf{RQ2}. \textit{Could we estimate COST from Bugzilla without Forward Looking?}
+
+
 \subsection{Profit}
+
+ Profit is an indicator of how much the value of the product has increased when the company has addressed this requirement. There were two indicators in Bugzilla that directly represented this value.
+ 
+\textbf{Priority}: Priority for bugs
+
+\textbf{Severity}: The Severity of the bug
+
+And there are other indicators that show interest in bugs.
+
+
+\textbf{Resolution, Votes, Number of Comments}
+
+
+Among these, the indicators with sufficient coverage of the data were \textit{Priority} and \textit{Number of comments}. The rest of the indicators were either underutilized by the project manager, or there was not much value difference between the requirements. 
+
+\textbf{Priority}: In the case of priority, the manager directly ranks the requirements, so it is also an accurate indicator of the profit. In the case of Bugzilla, they provide an interface to select Priority from a total of five stages, P1 to P5(P1 is the highest). The problem with Priority is that there is not much difference in values for each requirement because it is rank-based data. And because it's not a required metric, Eclipse has a lot of requirements that don't have priority entered, so it couldn't be used.
+
+
+\textbf{Number of Comments}: An indicator of how much Discussion has occurred in the requirements. We assumed that the requirements would have a high priority if Discussion had occurred in those requirements.
+
+ To find out, we compared the actual Priority to the Number of Comments. Figure n shows this as a box plot. The higher the priority, the more the comment. However, you can see that there are too many outliers and that the data is distributed asymmetrically. This is because the number of comments follows a log distribution. So we applied the logarithmic function to the number of commands and then we compared it again. This is shown in Figure n+1. 
+
+As Figure shows, Priority and Member of Comments have a linear relationship. Unlike Priority, Number of segments has a constant distribution of values and various values by requirement. Number of Comments is better than Priority to apply the actual search-based algorithm. 
+
+\textbf{RQ1}.\textit{ Could we estimate PROFIT from Bugzilla without Forward Looking?}
+
+We have concluded that we can speculate on Profit. Based on the manager's thinking priority and interest in this requirements, we were able to derive values for the profit between 1 and 5. Of course there are limitations. Number of comments is not a direct indicator, so exceptions must always be present. In addition, if the manager does not enter Priority, such as Eclipse repository, there is a significant lack of confidence in the value. If a priority index is entered forcibly, or if a more complex set of indicators such as the number of participants to discussion or number of views is considered, a more accurate profit can be drawn.
+
+
 \subsection{Cost}
 
+\subsection{Result}
 
 \begin{table} [H]
   \caption{Dataset from Bugzilla}
